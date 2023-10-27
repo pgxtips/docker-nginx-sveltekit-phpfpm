@@ -1,0 +1,38 @@
+version: "3.4"
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/nginx/dockerfile
+    ports:
+      - "8400:80"
+    depends_on:
+      - sveltekit
+    networks:
+      - internal
+
+  sveltekit:
+    restart: always
+    ports:
+      - 3000:3000 # needs to be availble outside the container for hmr
+    build:
+      context: ./
+      dockerfile: docker/sveltekit/dockerfile.dev
+    volumes:
+      - ./app/frontend:/app/frontend # Mount the source code
+      - /app/frontend/node_modules # ignore node_modules folder
+      - /app/frontend/.svelte-kit # ignore node_modules folder
+    networks:
+      - internal
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/phpfpm/dockerfile
+    volumes:
+      - ./app/backend:/var/www/
+    networks:
+      - internal
+
+networks:
+  internal:

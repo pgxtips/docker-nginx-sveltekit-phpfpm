@@ -1,0 +1,28 @@
+# Use an official Node.js image as a parent image
+FROM node:21-alpine
+
+# Set the Node environment to development to ensure all packages are installed
+ENV NODE_ENV development
+
+# Set the working directory in the container
+WORKDIR /app/frontend
+
+# Copy package.json and yarn.lock (or package-lock.json if using npm) to the container
+COPY /app/frontend/package*.json ./
+COPY /app/frontend/yarn.lock* ./
+
+# Install project dependencies
+RUN yarn install
+
+# Copy the rest of the data, excluding the node_modules directory
+COPY /app/frontend/ ./
+
+# Expose the port on which your SvelteKit app will run (for reference)
+EXPOSE 3000
+
+# Expose the port for Vite's HMR
+EXPOSE 24678
+
+# Start your SvelteKit app using the development server
+# Sets host to 0.0.0.0 so that the web app can be accessed from outside the container
+CMD ["yarn", "run", "dev", "--host", "0.0.0.0"]

@@ -1,0 +1,30 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/nginx/dockerfile
+    ports:
+      - "8400:80"
+    depends_on:
+      - sveltekit
+      - php-fpm
+    networks:
+      - internal
+
+  sveltekit:
+    build:
+      context: ./
+      dockerfile: docker/sveltekit/dockerfile.prod
+    networks:
+      - internal
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/phpfpm/dockerfile
+    networks:
+      - internal
+
+networks:
+  internal:
