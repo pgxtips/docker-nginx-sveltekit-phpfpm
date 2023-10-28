@@ -14,7 +14,17 @@ To run the application, please follow these steps:
 
 ### Prerequisites
 
-Before you begin, ensure that you have Docker installed on your machine. You can download and install Docker from [Docker's official website](https://www.docker.com/get-started).
+Before you begin, ensure that you have installed on your machine:
+1. Docker: You can download and install Docker from [Docker's official website](https://www.docker.com/get-started).
+2. Node.js: You can download and install Node.js from [Node.js official website](https://nodejs.org/en)
+3. Yarn: Once Node.js is installed, in the terminal run:
+   
+   ```bash
+   npm install -g yarn
+
+#### Note
+
+Node.js and Yarn are optional prerequisites, as they are not needed to run and build the docker containers. However, they will make development of the application easier. They will be needed to install the local node_modules to stop vscode errors.
 
 ### Installation
 
@@ -26,14 +36,14 @@ Before you begin, ensure that you have Docker installed on your machine. You can
 2. Navigate to the project folder in your terminal:
 
    ```bash
-   cd docker-nginx-phpfpm-boilerplate
+   cd docker-nginx-sveltekit-phpfpm
 
 3. Build and start the Docker containers, For Dev:
 
     ```bash
     docker compose -f \"docker-compose.dev.yaml\" up -d --build
 
-3. Build and start the Docker containers, For Production:
+4. Build and start the Docker containers, For Production:
 
     ```bash
     docker compose -f \"docker-compose.prod.yaml\" up -d --build
@@ -46,4 +56,15 @@ You can change the port or other configurations in the `docker-compose.dev.yaml`
 
 ## Configuration
 
+### VSCode
+1. You will get errors in VSCode when adding, editing or deleting inside sveltekit components/pages/routes/etc... 
+To solve this:
+
+   ```bash
+   cd frontend
+   yarn install 
+
+2. Restart VSCode
+
+### Additional Configuration
 You can customize this boilerplate to fit your project's requirements by modifying the relevant configuration files within the repository.
