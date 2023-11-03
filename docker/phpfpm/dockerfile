@@ -7,7 +7,7 @@ RUN apt-get update && \
     docker-php-ext-install pdo pdo_pgsql
 
 # Set the working directory in the container
-WORKDIR /var/www/
+WORKDIR /var/backend/
 # Copy the rest of the data
 COPY /app/backend/ ./
 # Expose the port on which PHP-FPM will listen (typically 9000)

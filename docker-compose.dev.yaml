@@ -30,7 +30,8 @@ services:
       context: ./
       dockerfile: docker/phpfpm/dockerfile
     volumes:
-      - ./app/backend:/var/www/
+      - ./app/backend:/var/backend/
+      - ./app/frontend/static:/var/www/
     networks:
       - internal
 
